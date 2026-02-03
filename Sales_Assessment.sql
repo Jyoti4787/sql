@@ -1,4 +1,4 @@
-/**
+
 
 use MyDatabase;
 --cities table--
@@ -102,4 +102,3 @@ join Customers c on o.CustomerId = c.CustomerId
 
 where month(o.OrderDate) = 1 and year(o.OrderDate) = 2026;
 
-**/
