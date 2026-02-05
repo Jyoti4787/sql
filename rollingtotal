@@ -1,0 +1,36 @@
+CREATE TABLE Sales (
+    ProductId INT,
+    SaleMonth DATE,
+    Amount INT
+);
+
+
+INSERT INTO Sales (ProductId, SaleMonth, Amount) VALUES
+(1, '2024-01-01', 100),
+(1, '2024-02-01', 150),
+(1, '2024-03-01', 200),
+(2, '2024-01-01', 80),
+(2, '2024-02-01', 120),
+(2, '2024-03-01', 50);
+
+
+SELECT
+    ProductId,
+    SaleMonth,
+    Amount,
+    SUM(Amount) OVER (
+        PARTITION BY ProductId
+        ORDER BY SaleMonth
+        ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+    ) AS RunningTotal
+FROM Sales
+ORDER BY ProductId, SaleMonth;
+
+--output
+--ProductId  SaleMonth   Amount  RunningTotal
+--1          2024-01-01  100     100
+--1          2024-02-01  150     250 
+--1          2024-03-01  200     450
+--2          2024-01-01  80      80
+--2          2024-02-01  120     200
+--2          2024-03-01  50      250           
