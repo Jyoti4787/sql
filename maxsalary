@@ -1,0 +1,33 @@
+CREATE TABLE Employees (
+    Id INTEGER PRIMARY KEY,
+    Name TEXT,
+    Dept TEXT,
+    Salary INTEGER
+);
+
+INSERT INTO Employees (Id, Name, Dept, Salary) VALUES
+(1, 'Amit',  'HR',    40000),
+(2, 'Neha',  'HR',    60000),
+(3, 'Raj',   'IT',    80000),
+(4, 'Simran','IT',    75000),
+(5, 'Karan', 'Sales', 50000),
+(6, 'Riya',  'Sales', 50000);
+
+SELECT e.Dept, e.Name, e.Salary
+FROM Employees e
+JOIN (
+    SELECT Dept, MAX(Salary) AS MaxSalary
+    FROM Employees
+    GROUP BY Dept
+) m
+ON e.Dept = m.Dept
+AND e.Salary = m.MaxSalary;
+
+
+
+--output
+--Dept    Name    Salary
+--HR      Neha    60000
+--IT      Raj     80000
+--Sales   Karan   50000
+--Sales   Riya    50000

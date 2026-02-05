@@ -124,7 +124,9 @@ LEFT JOIN Bonus b ON a.AccountID = b.AccountID
 GROUP BY c.CustomerName, a.AccountNumber, a.OpeningBalance;
 
 
-
+---output
+--CustomerName     AccountNumber    CurrentBalance
+--Kisan Lal       SB1001          79000 
 
 
 
