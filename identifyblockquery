@@ -1,0 +1,24 @@
+CREATE TABLE TestBlock (
+    Id INT PRIMARY KEY,
+    Name VARCHAR(50)
+);
+
+INSERT INTO TestBlock VALUES (1, 'Amit');
+
+
+BEGIN TRANSACTION;
+
+UPDATE TestBlock
+SET Name = 'Blocked by Session A'
+WHERE Id = 1;
+-- Keep this transaction open. Do NOT commit.
+
+
+UPDATE TestBlock
+SET Name = 'Trying from Session B'
+WHERE Id = 1;
+
+
+COMMIT;
+
+
